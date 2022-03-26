@@ -46,17 +46,23 @@ def get_104(inputlist):
         print(data)
 
         for i in data["data"]["list"]:
+            try:
+                appearDateDesc = i["appearDateDesc"]  # 上傳時間
+                coIndustryDesc = i["coIndustryDesc"]  # 工作類別
+                description = i["description"]  # 工作需求
+                jobAddrNoDesc = i["jobAddrNoDesc"]+i["jobAddress"]  # 工作地點
+                salaryDesc = i["salaryDesc"]  # 薪水
+                link = i["link"]["job"]  # 連結
+                strbox += i["jobName"] + \
+                    f"\n----------------------\n上傳時間:{appearDateDesc}\n薪資：{salaryDesc}\n工作地點:{jobAddrNoDesc}\n類別：{coIndustryDesc}\n連結:{link}\n=======================\n"
+                strbox += f"{description}" + \
+                    "\n=======================\n\n❤️🧡❤️🧡❤️🧡❤️🧡❤️\n\n"
+            except Exception as e:
+                print(e)
+    try:
 
-            appearDateDesc = i["appearDateDesc"]  # 上傳時間
-            coIndustryDesc = i["coIndustryDesc"]  # 工作類別
-            description = i["description"]  # 工作需求
-            jobAddrNoDesc = i["jobAddrNoDesc"]+i["jobAddress"]  # 工作地點
-            salaryDesc = i["salaryDesc"]  # 薪水
-            link = i["link"]["job"]  # 連結
-            strbox += i["jobName"] + \
-                f"\n----------------------\n上傳時間:{appearDateDesc}\n薪資：{salaryDesc}\n工作地點:{jobAddrNoDesc}\n類別：{coIndustryDesc}\n連結:{link}\n=======================\n"
-            strbox += f"{description}\n=======================\n"
-    return strbox.replace("&lt;", "<").replace("&gt;", ">")
-
-# 呼叫notify
-# notifybot()
+        return strbox.replace("&lt;", "<").replace("&gt;", ">")
+    except Exception as e:
+        print(e)
+        # 呼叫notify
+        # notifybot()

@@ -46,12 +46,30 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def pretty_echo(event):
-    if event.message.text == "資訊":
+
+    msg = get_msg(event.message.text)
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=msg)
+    )
+
+
+def get_msg(input):
+    if input == "資訊":
         msg = get_104()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=msg)
-        )
+
+        return msg
+    if input == "指令":
+        msg = "104找工作：\n104 <搜尋關鍵字> <地區>,<地區> <尋找頁數>"
+
+        return msg
+    inputlist = input.split(' ')
+    if inputlist[0] == "104":
+        if(len(inputlist) != 4):
+            msg = "你的指令格式輸入錯誤"
+
+            return msg
+        return get_104(inputlist)
 
 
 if __name__ == "__main__":

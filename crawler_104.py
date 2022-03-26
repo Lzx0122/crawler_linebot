@@ -15,12 +15,25 @@ def notifybot():
 
 
 def get_104(inputlist):
+    d104 = {
+        "台北市": "6001001000",
+        "新北市": "6001002000",
+        "桃園市": "6001005000",
+        "台中市": "6001008000",
+        "彰化縣": "6001010000",
+        "台南市": "6001014000",
+        "高雄市": "6001016000"
+    }
+    arealist = inputlist[2].split(',')
+    for i in range(len(arealist)):
+        arealist[i] = d104[arealist[i]]
+
     strbox = ""
 
     for i in range(int(inputlist[3])):
         i += 1
         strbox += "\n頁數"+str(i)+":---------------\n\n"
-        url = "https://www.104.com.tw/jobs/search/list?ro=0&isnew=0&kwop=7&keyword=python%E7%88%AC%E8%9F%B2&expansionType=area%2Cspec%2Ccom%2Cjob%2Cwf%2Cwktm&order=12&asc=0&page=" + \
+        url = "https://www.104.com.tw/jobs/search/list?ro=0&isnew=0&kwop=7&keyword="+inputlist[1]+"&expansionType=area%2Cspec%2Ccom%2Cjob%2Cwf%2Cwktm&area="+",".join(arealist)+"&order=12&asc=0&page=" + \
             str(i)+"&mode=s&langFlag=0&langStatus=0&recommendJob=1&hotJob=1"
         header = {
 
@@ -33,9 +46,17 @@ def get_104(inputlist):
         print(data)
 
         for i in data["data"]["list"]:
-            strbox += i["custName"]+"\n"
 
-    return strbox
+            appearDateDesc = i["appearDateDesc"]  # 上傳時間
+            coIndustryDesc = i["coIndustryDesc"]  # 工作類別
+            description = i["description"]  # 工作需求
+            jobAddrNoDesc = i["jobAddrNoDesc"]+i["jobAddress"]  # 工作地點
+            salaryDesc = i["salaryDesc"]  # 薪水
+            link = i["link"]["job"]  # 連結
+            strbox += i["jobName"] + \
+                f"\n----------------------\n上傳時間:{appearDateDesc}\n薪資：{salaryDesc}\n工作地點:{jobAddrNoDesc}\n類別：{coIndustryDesc}\n連結:{link}\n=======================\n"
+            strbox += f"{description}\n=======================\n"
+    return strbox.replace("&lt;", "<").replace("&gt;", ">")
 
 # 呼叫notify
 # notifybot()

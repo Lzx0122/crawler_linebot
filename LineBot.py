@@ -48,10 +48,18 @@ def callback():
 def pretty_echo(event):
 
     msg = get_msg(event.message.text)
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=msg)
-    )
+
+    try:
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=msg)
+        )
+    except Exception as e:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=e)
+        )
 
 
 def get_msg(input):

@@ -27,6 +27,7 @@ handler = WebhookHandler(config.get('line-bot', 'channel_secret'))
 # 接收 LINE 的資訊
 @app.route("/callback", methods=['POST'])
 def callback():
+
     signature = request.headers['X-Line-Signature']
 
     body = request.get_data(as_text=True)
@@ -37,6 +38,7 @@ def callback():
         handler.handle(body, signature)
 
     except InvalidSignatureError:
+
         abort(400)
 
     return 'OK'
@@ -48,19 +50,11 @@ def callback():
 def pretty_echo(event):
 
     msg = get_msg(event.message.text)
-
-    try:
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=msg)
-        )
-    except Exception as e:
-
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=e)
-        )
+    print(msg)
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=msg)
+    )
 
 
 def get_msg(input):

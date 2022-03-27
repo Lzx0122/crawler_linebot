@@ -58,10 +58,7 @@ def pretty_echo(event):
 
 
 def get_msg(input):
-    if input == "資訊":
-        msg = get_104()
 
-        return msg
     if input == "指令":
         msg = "104找工作：\n104 <搜尋關鍵字> <地區>,<地區> <尋找頁數>"
 

@@ -15,17 +15,6 @@ class NpEncoder(json.JSONEncoder):
         return super(NpEncoder, self).default(obj)
 
 
-def notifybot():
-    headers = {
-        "Authorization": "Bearer " + "r4J0BaYHj4yruCRVdO490gxrrUhkjaYQQegqKwi2cBP",
-        "Content-Type": "application/x-www-form-urlencoded"
-    }
-
-    params = {"message": "測試"}
-    r = req.post("https://notify-api.line.me/api/notify",
-                 headers=headers, params=params)
-
-
 def get_104(inputlist):
     isreturn = False
     d104 = {

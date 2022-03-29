@@ -12,6 +12,7 @@ import random
 
 # 呼叫爬蟲
 from crawler_104 import get_104
+from crawler_COVID19 import get_covid19
 
 app = Flask(__name__)
 
@@ -58,6 +59,9 @@ def pretty_echo(event):
 
 
 def get_msg(input):
+
+    if input == "確診":
+        return get_covid19()
 
     if input == "指令":
         msg = "104找工作：\n104 <搜尋關鍵字> <地區>,<地區> <尋找頁數>"

@@ -51,7 +51,7 @@ def get_104(inputlist):
         try:
             appearDateDesc = i["appearDateDesc"]  # 上傳時間
             coIndustryDesc = i["coIndustryDesc"]  # 工作類別
-            # description = i["description"]  # 工作需求
+            # description = i["description"]  # 工作需
 
             jobAddrNoDesc = i["jobAddrNoDesc"]+i["jobAddress"]  # 工作地點
             salaryDesc = i["salaryDesc"]  # 薪水
